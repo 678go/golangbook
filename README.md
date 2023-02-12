@@ -6,3 +6,5 @@
 
 - [常用的字符串操作](https://www.craft.do/s/Nbclp9OP2KhkGx)
 - [string、int、int64之间的相互转换](https://www.baidu.com)
+
+## 2. gorm常用操作
