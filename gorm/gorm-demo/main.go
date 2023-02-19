@@ -43,10 +43,10 @@ type Student struct {
 	Email  *string `gorm:"size:32"`
 }
 
-//func (s *Student) BeforeCreate(tx *gorm.DB) (err error) {
-//	s.Age = 99
-//	return nil
-//}
+func (s *Student) BeforeCreate(tx *gorm.DB) (err error) {
+	s.Age = 99
+	return nil
+}
 
 // User 用户表
 type User struct {
