@@ -9,4 +9,7 @@
 
 
 ## 2. gorm常用操作
-   - [数据库连接](https://www.baidu.com)
+   - [数据库连接](https://ylinyang.com/2023/02/12/gorm/gorm01/)
+   - [模型的定义](https://ylinyang.com/2023/02/12/gorm/gorm02/)
+   - [单表常用操作](https://ylinyang.com/2023/02/15/gorm/gorm03/)
+   - [高级查询](https://ylinyang.com/2023/02/19/gorm/gorm05/)
