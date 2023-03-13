@@ -64,3 +64,7 @@ func TestCountNumber(t *testing.T) {
 	wg.Wait()
 	fmt.Println("总字数：", totalNum)
 }
+
+func TestServer(t *testing.T) {
+
+}
