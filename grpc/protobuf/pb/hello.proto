@@ -1,0 +1,20 @@
+// 版本 默认v3
+syntax = "proto3";
+
+// package 的名字
+package hello;
+
+// protobuf的一些选项参数, 这里指定的是要生成的Go语言package路径, 其他语言参数各不相同
+option go_package="github.com/678go/golangbook/grpc/protobuf/pb";
+
+// 关键字定义一个新的String类型，在最终生成的Go语言代码中对应一个String结构体。String类型中只有一个字符串类型的value成员，该成员编码时用1编号代替名字
+message String {
+  string value = 1;
+}
+
+// 在当前文件夹执行生产hello.pd.go文件
+// 指定proto文件搜索的路径
+// --go_out: --go指插件的名称  而--go_out 表示的是 go插件的 out参数, 这里指编译产物的存放目录
+// --go_opt: protoc-gen-go插件opt参数, 这里的module指定了go module, 生成的go pkg 会去除掉module路径，生成对应pkg
+// protoc -I=. --go_out=. --go_opt=module="github.com/678go/golangbook/grpc/protobuf/pb" ./hello.proto
+

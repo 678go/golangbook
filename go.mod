@@ -1,4 +1,4 @@
-module github.com/ylinyang/golangbook
+module github.com/678g0/golangbook
 
 go 1.19
 
