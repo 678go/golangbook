@@ -1,0 +1,14 @@
+syntax = "proto3";
+package hello;
+option go_package="github.com/678go/golangbook/grpc/protobufGrpc/service";
+
+message Request {
+  string value = 1;
+}
+
+message Reply{
+  string value = 1;
+}
+
+// 生成pb.go文件，在当前目录执行
+// protoc -I=. --go_out=. --go_opt=module="github.com/678go/golangbook/grpc/protobufGrpc/service" ./hello.proto
