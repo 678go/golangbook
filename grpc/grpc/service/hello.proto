@@ -1,0 +1,26 @@
+syntax = "proto3";
+package hello;
+option go_package="github.com/678go/golangbook/grpc/grpc/service";
+
+
+service HelloService {
+  rpc Hello(Request) returns(Reply);
+}
+
+message Request {
+  string value = 1;
+}
+
+message Reply{
+  string value = 1;
+}
+// 生成pb.go文件，在当前目录执行
+// protoc -I=. --go_out=. --go_opt=module="github.com/678go/golangbook/grpc/grpc/service" --go-grpc_out=. --go-grpc_opt=module="github.com/678go/golangbook/grpc/grpc/service" ./hello.proto
+
+// hello_grpc.pd.go解读
+/*
+1. 生成两个接口 HelloServiceClient 与 HelloServiceServer
+2. 一个客户端结构体 helloServiceClient 有个New方法NewHelloServiceClient 同时实现了HelloServiceClient接口
+3. 服务端接口HelloServiceServer 下有一个mustEmbedUnimplementedHelloServiceServer方法
+4. 有一个结构体UnimplementedHelloServiceServer通过继承改结构体来继承其方法
+*/

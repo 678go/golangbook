@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/678g0/golangbook/grpc/protobufGrpc/service"
+	"github.com/678g0/golangbook/grpc/protobufRPC/service"
 	"log"
 	"net"
 	"net/rpc"
