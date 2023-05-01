@@ -25,6 +25,24 @@ func (g *grpcAuth) Auth(ctx context.Context, req interface{}, info *grpc.UnarySe
 	return handler(ctx, req)
 }
 
+// stream认证中间件
+func (g *grpcAuth) streamAuth(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+	md, ok := metadata.FromIncomingContext(ss.Context())
+	if !ok {
+		return fmt.Errorf("ctx is not an grpc incoming context")
+	}
+	fmt.Println("gprc header info: ", md)
+
+	id, key := g.getClientCredentialsFromMeta(md)
+	fmt.Println(id, key)
+	fmt.Println("dddd")
+	if err := g.validateServiceCredential(id, key); err != nil {
+		return err
+	}
+	// 向下传递
+	return handler(srv, ss)
+}
+
 // 获取id、key
 func (g *grpcAuth) getClientCredentialsFromMeta(md metadata.MD) (id, key string) {
 	idList := md.Get("clientId")
@@ -51,4 +69,8 @@ func (g *grpcAuth) validateServiceCredential(id, key string) error {
 
 func NewGrpcAuthUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 	return (&grpcAuth{}).Auth
+}
+
+func NewGrpcAuthStreamServerInterceptor() grpc.StreamServerInterceptor {
+	return (&grpcAuth{}).streamAuth
 }

@@ -35,6 +35,8 @@ func main() {
 	grpcServer := grpc.NewServer(
 		// 添加认证中间件, 如果有多个中间件需要添加 使用ChainUnaryInterceptor
 		grpc.UnaryInterceptor(service.NewGrpcAuthUnaryServerInterceptor()),
+		// 流模式认证中间件
+		grpc.StreamInterceptor(service.NewGrpcAuthStreamServerInterceptor()),
 	)
 	// 然后通过gRPC插件生成的RegisterHelloServiceServer函数注册我们实现的HelloServiceImpl服务
 	service.RegisterHelloServiceServer(grpcServer, &HelloServiceServer{})
