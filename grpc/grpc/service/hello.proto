@@ -5,6 +5,7 @@ option go_package="github.com/678go/golangbook/grpc/grpc/service";
 
 service HelloService {
   rpc Hello(Request) returns(Reply);
+  rpc Channel (stream Request) returns (stream Reply) {}
 }
 
 message Request {
@@ -23,4 +24,5 @@ message Reply{
 2. 一个客户端结构体 helloServiceClient 有个New方法NewHelloServiceClient 同时实现了HelloServiceClient接口
 3. 服务端接口HelloServiceServer 下有一个mustEmbedUnimplementedHelloServiceServer方法
 4. 有一个结构体UnimplementedHelloServiceServer通过继承改结构体来继承其方法
+HelloService_ChannelClient 里面有send和recv的方法
 */

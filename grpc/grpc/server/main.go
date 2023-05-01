@@ -16,6 +16,19 @@ func (h *HelloServiceServer) Hello(ctx context.Context, req *service.Request) (*
 	return &service.Reply{Value: "hello" + req.Value}, nil
 }
 
+// 在服务端扩展HelloServiceServer结构体实现Channel方法
+
+func (h *HelloServiceServer) Channel(stream service.HelloService_ChannelServer) error {
+	for {
+		// 接收请求
+		recv, _ := stream.Recv()
+		// 返回响应
+		if err := stream.Send(&service.Reply{Value: "hell0 " + recv.GetValue()}); err != nil {
+			return err
+		}
+	}
+}
+
 func main() {
 	// 首先是通过grpc.NewServer()构造一个gRPC服务对象
 	grpcServer := grpc.NewServer()
