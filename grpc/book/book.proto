@@ -1,13 +1,18 @@
 syntax = "proto3";
-import "page.proto";  // 引入公共pb文件
+import "page.proto";
 
 package book;
 option go_package = "github.com/678go/golangbook/grpc/book";
 
 
 /*
+在进行依赖的protobuf文件生成时，需要先将import里面被依赖的生成后，在生成自己的
 protoc -I=. -I=../pb --go_out=. --go_opt=module="github.com/678go/golangbook/grpc/book" \
  --go-grpc_out=. --go-grpc_opt=module="github.com/678go/golangbook/grpc/book" ./book.proto
+-I= ../pb 这里存放的就是需要依赖的pb 使用引用的pb文件如下：
+//golangbook.678go.page.PageRequest page = 1;
+page.PageRequest page = 1;
+栗子：golangbook/grpc/book
 */
 service Service {
   rpc CreateBook(CreateBookRequest) returns(Book);
@@ -69,7 +74,6 @@ message QueryBookRequest {
   // @gotags: json:"page"
   //golangbook.678go.page.PageRequest page = 1;
   page.PageRequest page = 1;
-
   // 关键字参数
   // @gotags: json:"keywords"
   string keywords = 2;

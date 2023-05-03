@@ -2,7 +2,8 @@ syntax = "proto3";
 
 package page;
 
-option go_package = "github.com/678go/golangbook/grpc/pb/page";
+// protoc -I=. --go_out=. --go_opt=module="github.com/678go/golangbook/grpc/pb"  ./*.proto
+option go_package = "github.com/678go/golangbook/grpc/pb";
 
 message PageRequest {
   uint64 page_size = 1;
