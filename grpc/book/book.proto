@@ -1,17 +1,20 @@
 syntax = "proto3";
+import "page.proto";  // 引入公共pb文件
 
-package demo.book;
+package book;
 option go_package = "github.com/678go/golangbook/grpc/book";
 
 
-import "github.com/678go/golangbook/grpc/pb/request.proto";
-
+/*
+protoc -I=. -I=../pb --go_out=. --go_opt=module="github.com/678go/golangbook/grpc/book" \
+ --go-grpc_out=. --go-grpc_opt=module="github.com/678go/golangbook/grpc/book" ./book.proto
+*/
 service Service {
   rpc CreateBook(CreateBookRequest) returns(Book);
   rpc QueryBook(QueryBookRequest) returns(BookSet);
-  rpc DescribeBook(DescribeBookRequest) returns(Book);
-  rpc UpdateBook(UpdateBookRequest) returns(Book);
-  rpc DeleteBook(DeleteBookRequest) returns(Book);
+//  rpc DescribeBook(DescribeBookRequest) returns(Book);
+//  rpc UpdateBook(UpdateBookRequest) returns(Book);
+//  rpc DeleteBook(DeleteBookRequest) returns(Book);
 }
 
 enum Catalog {
@@ -65,6 +68,8 @@ message QueryBookRequest {
   // 分页参数, <package_name>.<message_name>
   // @gotags: json:"page"
   //golangbook.678go.page.PageRequest page = 1;
+  page.PageRequest page = 1;
+
   // 关键字参数
   // @gotags: json:"keywords"
   string keywords = 2;

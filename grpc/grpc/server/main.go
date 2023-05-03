@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/678g0/golangbook/grpc/grpc/service"
+	"github.com/678go/golangbook/grpc/grpc/service"
 	"google.golang.org/grpc"
 	"net"
 )
