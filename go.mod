@@ -1,4 +1,4 @@
-module github.com/678g0/golangbook
+module github.com/678go/golangbook
 
 go 1.19
 
