@@ -56,6 +56,7 @@ message BookSet {
   repeated Book items = 2;
 }
 
+// 在定义message时如下注释的标签是无法自动生成的，需要借助于第三方工具才行
 // CreateBookRequest 创建书本信息的结构体
 message CreateBookRequest {
   // 创建人
