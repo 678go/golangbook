@@ -22,7 +22,7 @@ type DetailConfValue struct {
 }
 
 func main() {
-	var apps = []string{"zeus-app"}
+	var apps = []string{"chaos"}
 	mm := &mongodb{}
 	mm.init("db_ares", "db_ares", "db_ares", "business-conf")
 	for _, app := range apps {
@@ -56,7 +56,7 @@ func (m *mongodb) updateService(ctx context.Context, svc, src, dst string) error
 	documents, _ := m.collection.CountDocuments(ctx, bson.M{"template_name": svc})
 	fmt.Printf("%s 总条数: %d\n", svc, documents)
 	find, _ := m.collection.Find(ctx, bson.M{"template_name": svc})
-
+	//	i := 1
 	for find.Next(ctx) {
 		var (
 			b                  business
@@ -95,10 +95,10 @@ func (m *mongodb) updateService(ctx context.Context, svc, src, dst string) error
 			fmt.Println("序列化失败,", err)
 			return err
 		}
-		//fmt.Println(string(marshal))
 		// 更新
 		_, err = m.collection.UpdateOne(context.Background(), bson.D{
 			{"template_name", svc},
+			{"conf_name", b.ConfName},
 		}, bson.D{
 			{"$set", bson.D{
 				{"conf_value", string(marshal)},
@@ -107,8 +107,8 @@ func (m *mongodb) updateService(ctx context.Context, svc, src, dst string) error
 		if err != nil {
 			fmt.Printf("更新%s的业务配置%s失败\n", svc, b.ConfName)
 		}
+		//fmt.Println(result)
 		fmt.Printf("更新%s的业务配置%s成功\n", svc, b.ConfName)
-		break
 	}
 	return nil
 }
